@@ -5,6 +5,7 @@ import AddContact from "./components/AddContact";
 import ContactList from "./components/ContactList";
 import { v4 as uuidv4 } from "uuid";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 function App() {
   const LocalStorage_KEY = "contacts";
   const [contacts, setContacts] = useState([]); //if initial state [] not given undefined render error

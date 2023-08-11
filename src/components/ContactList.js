@@ -14,7 +14,12 @@ const ContactList = (props) => {
       />
     );
   });
-  return <div className="ui celled list">{displayContactList}</div>;
+  return (
+    <div className="ui main" style={{ marginTop: "40px" }}>
+      <h2>Contacts List</h2>
+      <div className="ui celled list">{displayContactList}</div>;
+    </div>
+  );
 };
 
 export default ContactList;

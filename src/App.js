@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import AddContact from "./components/AddContact";
 import ContactList from "./components/ContactList";
 import { v4 as uuidv4 } from "uuid";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const LocalStorage_KEY = "contacts";
   const [contacts, setContacts] = useState([]); //if initial state [] not given undefined render error
@@ -36,11 +37,24 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList
-        contacts={contacts}
-        removeContactHandler={removeContactHandler}
-      />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/add"
+            element={<AddContact addContactHandler={addContactHandler} />}
+          />
+
+          <Route
+            path="/"
+            element={
+              <ContactList
+                contacts={contacts}
+                removeContactHandler={removeContactHandler}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

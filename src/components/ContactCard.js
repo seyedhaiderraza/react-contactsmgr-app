@@ -3,6 +3,9 @@ import user from "../images/contact-icon.png";
 
 const ContactCard = ({ contact, clickHandler }) => {
   const { id, name, email } = contact;
+  const removeContact = (id) => {
+    clickHandler(id);
+  };
   return (
     <div className="item" style={{ display: "flex", alignItems: "center" }}>
       <img className="ui avatar image" src={user} alt="user" />
@@ -13,6 +16,7 @@ const ContactCard = ({ contact, clickHandler }) => {
       <i
         className="trash alternate outline icon"
         style={{ color: "red", margin: "1rem", cursor: "pointer" }}
+        onClick={() => removeContact(id)}
       ></i>
     </div>
   );

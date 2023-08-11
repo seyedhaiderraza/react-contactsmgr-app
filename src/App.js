@@ -12,6 +12,11 @@ function App() {
     setContacts((prev) => [...prev, { id: uuidv4(), ...contact }]);
   };
 
+  const removeContactHandler = (id) => {
+    setContacts((prev) => {
+      return prev.filter((contact) => contact.id !== id);
+    });
+  };
   useEffect(() => {
     const fetchedContacts = JSON.parse(localStorage.getItem(LocalStorage_KEY)); //str to obj
     if (fetchedContacts) setContacts(fetchedContacts);
@@ -23,6 +28,7 @@ function App() {
   useEffect(() => {
     if (contacts.length !== 0)
       localStorage.setItem(LocalStorage_KEY, JSON.stringify(contacts));
+    else localStorage.clear();
     //obj to str
   }, [contacts]);
   //whenever contacts array changes rrender happens to update the contacts list display
@@ -31,7 +37,10 @@ function App() {
     <div className="App">
       <Header />
       <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} />
+      <ContactList
+        contacts={contacts}
+        removeContactHandler={removeContactHandler}
+      />
     </div>
   );
 }

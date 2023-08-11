@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "id": "8dbd4e9c-46d1-46ce-a409-b1e9e133081f",
+      "name": "superman",
+      "email": "super@drapes.com"
+    },
+    {
+      "id": "4ff3eecf-78eb-428f-8444-ff3e666e834e",
+      "name": "spiderman",
+      "email": "spider@web.com"
+    },
+    {
+      "id": "c4b8c1d0-34a2-4265-891e-d4f6e9421625",
+      "name": "khan",
+      "email": "superhit@khan.com"
+    }
+  ]
+}

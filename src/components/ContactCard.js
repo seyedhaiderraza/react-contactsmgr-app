@@ -16,6 +16,17 @@ const ContactCard = ({ contact, clickHandler }) => {
           <div>{email}</div>
         </Link>
       </div>
+      <Link to={`/edit`} state={{ contact: contact }}>
+        <i
+          className="edit alternate outline icon"
+          style={{
+            color: "green",
+            margin: "1rem",
+            cursor: "pointer",
+            marginLeft: "2rem",
+          }}
+        ></i>
+      </Link>
       <i
         className="trash alternate outline icon"
         style={{ color: "red", margin: "1rem", cursor: "pointer" }}

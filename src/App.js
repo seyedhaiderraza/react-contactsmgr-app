@@ -12,7 +12,8 @@ import { all } from "axios";
 function App() {
   const LocalStorage_KEY = "contacts";
   const [contacts, setContacts] = useState([]); //if initial state [] not given undefined render error
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const addContactHandler = async (contact) => {
     const request = {
       id: uuidv4(),
@@ -22,6 +23,14 @@ function App() {
     const response = await api.post("/contacts", request);
     console.log(response);
     setContacts((prev) => [...prev, response.data]);
+  };
+
+  const updateContactHandler = async (contact) => {
+    const response = await api.put(`contacts/${contact.id}`, contact);
+    const updatedContactsList = contacts.filter(
+      (item) => item.id !== contact.id
+    );
+    setContacts((prev) => [...updatedContactsList, response.data]);
   };
 
   const removeContactHandler = async (id) => {
@@ -40,6 +49,19 @@ function App() {
     const response = await api.get("/contacts");
     console.log(response);
     return response.data;
+  };
+
+  const searchKeywordHandler = (searchKeyword) => {
+    setSearchTerm(searchKeyword);
+
+    if (searchKeyword !== "") {
+      const filtered = contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchKeyword.toLowerCase())
+      );
+      setSearchResults(filtered);
+    } else {
+      setSearchResults(contacts);
+    }
   };
   useEffect(() => {
     // const fetchedContacts = JSON.parse(localStorage.getItem(LocalStorage_KEY)); //str to obj
@@ -71,8 +93,10 @@ function App() {
             path="/"
             element={
               <ContactList
-                contacts={contacts}
+                contacts={searchTerm.length < 1 ? contacts : searchResults}
                 removeContactHandler={removeContactHandler}
+                searchTerm={searchTerm}
+                searchKeywordHandler={searchKeywordHandler}
               />
             }
           />
@@ -81,7 +105,12 @@ function App() {
             element={<AddContact addContactHandler={addContactHandler} />}
           />
 
-          <Route path="/edit" element={<EditContact />} />
+          <Route
+            path="/edit"
+            element={
+              <EditContact updateContactHandler={updateContactHandler} />
+            }
+          />
           <Route path="/contact/:id" element={<ContactPage />} />
         </Routes>
       </BrowserRouter>

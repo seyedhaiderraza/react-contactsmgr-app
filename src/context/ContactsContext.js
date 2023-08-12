@@ -6,6 +6,9 @@ const contactsContext = createContext();
 const ContactsContextProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   const addContactHandler = async (contact) => {
     const request = {
       id: uuidv4(),
@@ -42,12 +45,29 @@ const ContactsContextProvider = ({ children }) => {
     );
     setContacts((prev) => [...updatedContactsList, response.data]);
   };
+
+  const searchKeywordHandler = (searchKeyword) => {
+    setSearchTerm(searchKeyword);
+
+    if (searchKeyword !== "") {
+      const filtered = contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchKeyword.toLowerCase())
+      );
+      setSearchResults(filtered);
+    } else {
+      setSearchResults(contacts);
+    }
+  };
+
   const contextStateData = {
     contacts,
+    searchResults,
+    searchTerm,
     addContactHandler,
     fetchContacts,
     updateContactHandler,
     removeContactHandler,
+    searchKeywordHandler,
   };
   return (
     <contactsContext.Provider value={contextStateData}>

@@ -12,22 +12,8 @@ import { ContactsContextProvider } from "./context/ContactsContext";
 
 function App() {
   const LocalStorage_KEY = "contacts";
-  const [contacts, setContacts] = useState([]); //if initial state [] not given undefined render error
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  //const [contacts, setContacts] = useState([]); //if initial state [] not given undefined render error
 
-  const searchKeywordHandler = (searchKeyword) => {
-    setSearchTerm(searchKeyword);
-
-    if (searchKeyword !== "") {
-      const filtered = contacts.filter((contact) =>
-        contact.name.toLowerCase().includes(searchKeyword.toLowerCase())
-      );
-      setSearchResults(filtered);
-    } else {
-      setSearchResults(contacts);
-    }
-  };
   //useEffect(() => {
   // const fetchedContacts = JSON.parse(localStorage.getItem(LocalStorage_KEY)); //str to obj
   // if (fetchedContacts) setContacts(fetchedContacts);
@@ -55,16 +41,7 @@ function App() {
       <BrowserRouter>
         <ContactsContextProvider>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <ContactList
-                  contacts={searchTerm.length < 1 ? contacts : searchResults}
-                  searchTerm={searchTerm}
-                  searchKeywordHandler={searchKeywordHandler}
-                />
-              }
-            />
+            <Route path="/" element={<ContactList />} />
             <Route path="/add" element={<AddContact />} />
 
             <Route path="/contact/:id" element={<EditContact />} />

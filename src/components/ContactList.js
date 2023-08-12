@@ -4,17 +4,25 @@ import { Link } from "react-router-dom";
 import { contactsContext } from "../context/ContactsContext";
 
 const ContactList = (props) => {
-  const { contacts, fetchContacts } = useContext(contactsContext);
+  const {
+    contacts,
+    fetchContacts,
+    searchResults,
+    searchTerm,
+    searchKeywordHandler,
+  } = useContext(contactsContext);
   const searchKeyword = useRef("");
 
-  const searchKeywordHandler = () => {
-    props.searchKeywordHandler(searchKeyword.current.value);
+  const searchKeywordHandle = () => {
+    console.log(searchKeyword.current.value);
+    searchKeywordHandler(searchKeyword.current.value);
   };
-
   useEffect(() => {
     fetchContacts(); //without calling this contacts wont be populated
   }, []);
-  const displayContactList = contacts.map((contact) => {
+  const filteredContacts = searchTerm ? searchResults : contacts;
+  //if we dont use searchTerm for filtering 'no contacts available wont be shown
+  const displayContactList = filteredContacts.map((contact) => {
     return <ContactCard key={contact.id} contact={contact} />;
   });
 
@@ -30,8 +38,8 @@ const ContactList = (props) => {
             type="text"
             placeholder="Search Contacts"
             className="prompt"
-            value={props.term}
-            onChange={searchKeywordHandler}
+            value={searchTerm}
+            onChange={searchKeywordHandle}
             ref={searchKeyword}
           />
           <i className="search icon"></i>

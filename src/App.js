@@ -16,14 +16,6 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const updateContactHandler = async (contact) => {
-    const response = await api.put(`contacts/${contact.id}`, contact);
-    const updatedContactsList = contacts.filter(
-      (item) => item.id !== contact.id
-    );
-    setContacts((prev) => [...updatedContactsList, response.data]);
-  };
-
   const searchKeywordHandler = (searchKeyword) => {
     setSearchTerm(searchKeyword);
 
@@ -75,8 +67,8 @@ function App() {
             />
             <Route path="/add" element={<AddContact />} />
 
-            <Route path="/edit" element={<EditContact />} />
-            <Route path="/contact/:id" element={<ContactPage />} />
+            <Route path="/contact/:id" element={<EditContact />} />
+            <Route path="/contact/view/:id" element={<ContactPage />} />
           </Routes>
         </ContactsContextProvider>
       </BrowserRouter>

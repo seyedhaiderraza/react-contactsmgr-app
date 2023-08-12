@@ -34,10 +34,19 @@ const ContactsContextProvider = ({ children }) => {
      api.delete=> contact not found in json server=>404
      */
   };
+
+  const updateContactHandler = async (contact) => {
+    const response = await api.put(`/contacts/${contact.id}`, contact);
+    const updatedContactsList = contacts.filter(
+      (item) => item.id !== contact.id
+    );
+    setContacts((prev) => [...updatedContactsList, response.data]);
+  };
   const contextStateData = {
     contacts,
     addContactHandler,
     fetchContacts,
+    updateContactHandler,
     removeContactHandler,
   };
   return (

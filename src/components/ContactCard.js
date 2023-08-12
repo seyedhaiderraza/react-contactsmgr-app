@@ -19,7 +19,7 @@ const ContactCard = ({ contact, clickHandler }) => {
           <div>{email}</div>
         </Link>
       </div>
-      <Link to={`/edit`} state={{ contact: contact }}>
+      <Link to={`/contact/${id}`} state={{ contact: contact }}>
         <i
           className="edit alternate outline icon"
           style={{

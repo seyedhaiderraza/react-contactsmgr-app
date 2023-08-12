@@ -1,25 +1,26 @@
-// import { createContext } from "react";
+import { createContext, useState } from "react";
+import api from "../api/ContactsAPI";
 
-// const contactsContext = createContext();
+const contactsContext = createContext();
 
-// const contactsContextProvider = ({ children }) => {
-//     const fetchContacts = async(){
-//        // const response =  await axios.get();
-//        // return response.data;
-//     }
-//   const [contacts, setContactsData] = useState([]);
-//   const contactsData = {
-//     contacts,
-//     fetchContacts,
-//   };
-//   return (
-//     <contactsContext.Provider value={contactsData}>
-//       {children}
-//     </contactsContext.Provider>
-//   );
-// };
+const ContactsContextProvider = ({ children }) => {
+  const [contacts, setContacts] = useState([]);
 
-// const useContactsContext = () => {
-//   return useContext(contactsContextProvider);
-// };
-// export { useContactsContext, contactsContextProvider };
+  const fetchContacts = async () => {
+    const response = await api.get("/contacts");
+    console.log(response);
+    if (response.data) setContacts(response.data);
+  };
+
+  const contactsData = {
+    contacts,
+    fetchContacts,
+  };
+  return (
+    <contactsContext.Provider value={contactsData}>
+      {children}
+    </contactsContext.Provider>
+  );
+};
+
+export { ContactsContextProvider, contactsContext };

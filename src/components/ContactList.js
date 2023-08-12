@@ -1,15 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import ContactCard from "./ContactCard";
 import { Link } from "react-router-dom";
+import { contactsContext } from "../context/ContactsContext";
+
 const ContactList = (props) => {
+  const { contacts, fetchContacts } = useContext(contactsContext);
   const searchKeyword = useRef("");
+
   const removeContactHandler = (id) => {
     props.removeContactHandler(id);
   };
+
   const searchKeywordHandler = () => {
     props.searchKeywordHandler(searchKeyword.current.value);
   };
-  const displayContactList = props.contacts.map((contact) => {
+
+  useEffect(() => {
+    fetchContacts(); //without calling this contacts wont be populated
+  }, []);
+  const displayContactList = contacts.map((contact) => {
     return (
       <ContactCard
         key={contact.id}
@@ -18,6 +27,7 @@ const ContactList = (props) => {
       />
     );
   });
+
   return (
     <div className="ui main">
       <h2 style={{ marginTop: "40px" }}>Contacts List</h2>

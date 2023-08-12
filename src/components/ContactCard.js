@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import user from "../images/contact-icon.png";
 import { Link } from "react-router-dom";
+import { contactsContext } from "../context/ContactsContext";
 
 const ContactCard = ({ contact, clickHandler }) => {
+  const { removeContactHandler } = useContext(contactsContext);
+
   const { id, name, email } = contact;
   const removeContact = (id) => {
-    clickHandler(id);
+    removeContactHandler(id);
   };
   return (
     <div className="item" style={{ display: "flex", alignItems: "center" }}>

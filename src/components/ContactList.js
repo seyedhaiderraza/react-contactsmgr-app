@@ -7,10 +7,6 @@ const ContactList = (props) => {
   const { contacts, fetchContacts } = useContext(contactsContext);
   const searchKeyword = useRef("");
 
-  const removeContactHandler = (id) => {
-    props.removeContactHandler(id);
-  };
-
   const searchKeywordHandler = () => {
     props.searchKeywordHandler(searchKeyword.current.value);
   };
@@ -19,13 +15,7 @@ const ContactList = (props) => {
     fetchContacts(); //without calling this contacts wont be populated
   }, []);
   const displayContactList = contacts.map((contact) => {
-    return (
-      <ContactCard
-        key={contact.id}
-        contact={contact}
-        clickHandler={removeContactHandler}
-      />
-    );
+    return <ContactCard key={contact.id} contact={contact} />;
   });
 
   return (

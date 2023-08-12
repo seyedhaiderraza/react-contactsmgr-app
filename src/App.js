@@ -16,35 +16,12 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const addContactHandler = async (contact) => {
-    const request = {
-      id: uuidv4(),
-      ...contact,
-    };
-
-    const response = await api.post("/contacts", request);
-    console.log(response);
-    setContacts((prev) => [...prev, response.data]);
-  };
-
   const updateContactHandler = async (contact) => {
     const response = await api.put(`contacts/${contact.id}`, contact);
     const updatedContactsList = contacts.filter(
       (item) => item.id !== contact.id
     );
     setContacts((prev) => [...updatedContactsList, response.data]);
-  };
-
-  const removeContactHandler = async (id) => {
-    await api.delete(`/contacts/${id}`);
-    setContacts((prev) => {
-      return prev.filter((contact) => contact.id !== id);
-    });
-    /*this setstate to make sure the contact is removed
-     and not visible to click delete button again
-     else it will trigger removeContactHandler=>
-     api.delete=> contact not found in json server=>404
-     */
   };
 
   const searchKeywordHandler = (searchKeyword) => {
@@ -91,7 +68,6 @@ function App() {
               element={
                 <ContactList
                   contacts={searchTerm.length < 1 ? contacts : searchResults}
-                  removeContactHandler={removeContactHandler}
                   searchTerm={searchTerm}
                   searchKeywordHandler={searchKeywordHandler}
                 />

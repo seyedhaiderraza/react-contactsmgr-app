@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import api from "../api/ContactsAPI";
-
+import { v4 as uuidv4 } from "uuid";
 const contactsContext = createContext();
 
 const ContactsContextProvider = ({ children }) => {
@@ -36,6 +36,7 @@ const ContactsContextProvider = ({ children }) => {
   };
   const contextStateData = {
     contacts,
+    addContactHandler,
     fetchContacts,
     removeContactHandler,
   };

@@ -19,7 +19,7 @@ const ContactsContextProvider = ({ children }) => {
   const loginHandler = async (email, password) => {
     try {
       const response = await axios.post(
-        "/api/users/login",
+        "/users/login",
         {
           email,
           password,
@@ -52,7 +52,7 @@ const ContactsContextProvider = ({ children }) => {
   const registerHandler = async ({ username, email, password }) => {
     try {
       const response = await axios.post(
-        "api/users/register",
+        "/users/register",
         {
           username,
           email,
@@ -91,7 +91,7 @@ const ContactsContextProvider = ({ children }) => {
       phone: "333333",
     };
 
-    const response = await api.post("/api/contacts", request, {
+    const response = await api.post("/contacts", request, {
       headers: {
         Authorization: `Bearer ${authenticationToken}`,
       },
@@ -101,7 +101,7 @@ const ContactsContextProvider = ({ children }) => {
 
   const fetchContacts = async () => {
     try {
-      const response = await api.get("api/contacts", {
+      const response = await api.get("/contacts", {
         headers: {
           Authorization: `Bearer ${authenticationToken}`,
         },
@@ -116,7 +116,7 @@ const ContactsContextProvider = ({ children }) => {
   };
 
   const removeContactHandler = async (id) => {
-    const response = await api.delete(`api/contacts/${id}`, {
+    const response = await api.delete(`/contacts/${id}`, {
       headers: {
         Authorization: `Bearer ${authenticationToken}`,
       },
@@ -134,7 +134,7 @@ const ContactsContextProvider = ({ children }) => {
   };
 
   const updateContactHandler = async (contact) => {
-    const response = await api.put(`api/contacts/${contact._id}`, contact, {
+    const response = await api.put(`/contacts/${contact._id}`, contact, {
       headers: {
         Authorization: `Bearer ${authenticationToken}`,
       },

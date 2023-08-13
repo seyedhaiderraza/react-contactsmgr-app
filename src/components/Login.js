@@ -14,7 +14,7 @@ const Login = () => {
 
   return errorMessage.includes("invalid Login credentials") ? (
     <>
-      <div className="ui main" style={{ marginTop: "5rem" }}>
+      <div className="ui main" style={{ marginTop: "2.5rem" }}>
         <h2 style={{ color: "black" }}>
           Invalid Login Credentials Please retry
         </h2>
@@ -31,7 +31,7 @@ const Login = () => {
     </>
   ) : authenticationToken ? (
     <>
-      <div className="ui main" style={{ marginTop: "5rem" }}>
+      <div className="ui main" style={{ marginTop: "2.5rem" }}>
         Already Loggedin please continue
       </div>
       <Link to="/" className="ui button green">
@@ -43,7 +43,7 @@ const Login = () => {
     </>
   ) : (
     <div className="ui main">
-      <h2 style={{ marginTop: "50px" }}>Please Login</h2>
+      <h2 style={{ marginTop: "2.5rem" }}>Please Login</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();

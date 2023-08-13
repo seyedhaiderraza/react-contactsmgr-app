@@ -24,16 +24,21 @@ const ContactList = (props) => {
   const filteredContacts = searchTerm ? searchResults : contacts;
   //if we dont use searchTerm for filtering 'no contacts available wont be shown
   const displayContactList = filteredContacts.map((contact) => {
-    return <ContactCard key={contact._id} contact={contact} />;
+    const rndmPic =
+      `https://i.pravatar.cc/150?img=` +
+      (Math.floor(Math.random() * (70 - 1 + 1)) + 1);
+    return (
+      <ContactCard key={contact._id} contact={contact} rndmPic={rndmPic} />
+    );
   });
 
   return (
-    <div className="ui main" style={{ margin: "50px" }}>
-      <h2>Contacts List</h2>
+    <div className="ui main" style={{ marginTop: "2.5rem" }}>
+      <h1 style={{ textAlign: "center" }}>Contacts List</h1>
       <div className="ui search">
         <div
           className="ui icon input"
-          style={{ margin: "0px 0px 20px 10px", width: "30%" }}
+          style={{ margin: "0px 0px 20px 0px", width: "100%" }}
         >
           <input
             type="text"
@@ -47,7 +52,9 @@ const ContactList = (props) => {
         </div>
       </div>
       <Link to={"/add"}>
-        <button className="ui button blue right"> Add Contact</button>
+        <button className="ui button blue" style={{ margin: "0rem 30%" }}>
+          Add New Contact
+        </button>
       </Link>
       <div className="ui celled list">
         {displayContactList.length > 0

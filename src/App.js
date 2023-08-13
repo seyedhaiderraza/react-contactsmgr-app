@@ -11,15 +11,20 @@ import api from "./api/ContactsAPI";
 import { ContactsContextProvider } from "./context/ContactsContext";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
 function App() {
   const PrivateRoute = ({ element, ...props }) => {
     const authToken = localStorage.getItem("authToken");
     return authToken ? <>{element}</> : <Navigate to="/login" />;
   };
-
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        margin: "10% 35%",
+        padding: "1% 2% 5% 2%",
+        borderRadius: "1rem",
+      }}
+    >
       <BrowserRouter>
         <ContactsContextProvider>
           <Header />

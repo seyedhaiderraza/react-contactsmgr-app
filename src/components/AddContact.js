@@ -22,7 +22,7 @@ const AddContact = () => {
     navigate("/");
   };
   return (
-    <div className="ui main" style={{ marginTop: "40px" }}>
+    <div className="ui main" style={{ marginTop: "2.5rem" }}>
       <h2>Add Contact</h2>
       <Link to={"/"}>
         <button className="ui button green right"> View Contacts List</button>

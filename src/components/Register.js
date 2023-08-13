@@ -24,7 +24,7 @@ const Register = () => {
   }, []);
   return isRegistered || authenticationToken ? (
     <>
-      <div className="ui main" style={{ marginTop: "50px" }}>
+      <div className="ui main" style={{ marginTop: "2.5rem" }}>
         You are registered please login to continue
         <Link to="/login">
           <button className="ui button blue">Login</button>
@@ -33,7 +33,7 @@ const Register = () => {
     </>
   ) : (
     <div className="ui main">
-      <h2 style={{ marginTop: "50px" }}>Please Register</h2>
+      <h2 style={{ marginTop: "2.5rem" }}>Please Register</h2>
       <form onSubmit={handleRegister} className="ui form">
         <div className="field">
           <label>Username</label>

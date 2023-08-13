@@ -34,8 +34,8 @@ const EditContact = () => {
     navigate("/");
   };
   return (
-    <div className="ui main">
-      <h2 style={{ marginTop: "50px" }}>Update Contact</h2>
+    <div className="ui main" style={{ marginTop: "2.5rem" }}>
+      <h2>Update Contact</h2>
       <Link to={"/"}>
         <button className="ui button green right" style={{ display: "inline" }}>
           {" "}

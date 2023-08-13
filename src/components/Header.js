@@ -9,15 +9,29 @@ const Header = () => {
     logoutHandler();
   };
   return (
-    <div className="ui fixed menu">
+    <div
+      className="ui fixed menu"
+      style={{ paddingTop: "20px", paddingBottom: "20px" }}
+    >
       <div className="ui container center">
         <Link to={"/"}>
           <h2>Contacts Manager </h2>
         </Link>
         {authenticationToken ? (
           <div style={{ display: "flex", justifyItems: "flex-end" }}>
-            <p>Welcome, {userName}</p>
-            <button className="ui button" onClick={handleLogout}>
+            <h3 style={{ margin: "0rem 10rem" }}>
+              Welcome User,{" "}
+              <span
+                style={{
+                  color: "white",
+                  background: "gray",
+                  padding: "0.5rem",
+                }}
+              >
+                {userName}
+              </span>
+            </h3>
+            <button className="ui button teal" onClick={handleLogout}>
               Logout
             </button>
           </div>

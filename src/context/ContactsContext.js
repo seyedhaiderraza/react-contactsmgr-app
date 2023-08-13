@@ -91,11 +91,15 @@ const ContactsContextProvider = ({ children }) => {
       phone: "333333",
     };
 
-    const response = await api.post("/contacts", request, {
-      headers: {
-        Authorization: `Bearer ${authenticationToken}`,
-      },
-    });
+    const response = await api.post(
+      "https://contacts-manager-app-node-express.vercel.app/api/contacts",
+      request,
+      {
+        headers: {
+          Authorization: `Bearer ${authenticationToken}`,
+        },
+      }
+    );
     setContacts((prev) => [...prev, response.data]);
   };
 
@@ -116,11 +120,14 @@ const ContactsContextProvider = ({ children }) => {
   };
 
   const removeContactHandler = async (id) => {
-    const response = await api.delete(`/contacts/${id}`, {
-      headers: {
-        Authorization: `Bearer ${authenticationToken}`,
-      },
-    });
+    const response = await api.delete(
+      `https://contacts-manager-app-node-express.vercel.app/api/contacts/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authenticationToken}`,
+        },
+      }
+    );
     if (response?.data?.message === "contact removed") {
       setContacts((prev) => {
         return prev.filter((contact) => contact._id !== id);
@@ -134,11 +141,15 @@ const ContactsContextProvider = ({ children }) => {
   };
 
   const updateContactHandler = async (contact) => {
-    const response = await api.put(`/contacts/${contact._id}`, contact, {
-      headers: {
-        Authorization: `Bearer ${authenticationToken}`,
-      },
-    });
+    const response = await api.put(
+      `https://contacts-manager-app-node-express.vercel.app/api/contacts/${contact._id}`,
+      contact,
+      {
+        headers: {
+          Authorization: `Bearer ${authenticationToken}`,
+        },
+      }
+    );
     console.log(`updateContactHandler called`, response);
     const updatedContactsList = contacts.filter(
       (item) => item.id !== contact.id

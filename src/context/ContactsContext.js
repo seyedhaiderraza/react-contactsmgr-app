@@ -152,7 +152,7 @@ const ContactsContextProvider = ({ children }) => {
     );
     console.log(`updateContactHandler called`, response);
     const updatedContactsList = contacts.filter(
-      (item) => item.id !== contact.id
+      (item) => item._id !== contact._id
     );
     setContacts((prev) => [...updatedContactsList, response.data]);
   };

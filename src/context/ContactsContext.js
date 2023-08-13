@@ -105,14 +105,11 @@ const ContactsContextProvider = ({ children }) => {
 
   const fetchContacts = async () => {
     try {
-      const response = await api.get(
-        "https://contacts-manager-app-node-express.vercel.app/api/contacts",
-        {
-          headers: {
-            Authorization: `Bearer ${authenticationToken}`,
-          },
-        }
-      );
+      const response = await api.get("/contacts", {
+        headers: {
+          Authorization: `Bearer ${authenticationToken}`,
+        },
+      });
       if (response.data) setContacts(response.data);
     } catch (error) {
       if (error?.response?.data)

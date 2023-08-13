@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { contactsContext } from "../context/ContactsContext";
 const Register = () => {
+  const {
+    authenticationToken,
+    isRegistered,
+    setisRegistered,
+    registerHandler,
+  } = useContext(contactsContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -10,20 +16,22 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("api/users/register", {
-        username,
-        email,
-        password,
-      });
-      console.log(response.data);
-      navigate("/login");
-    } catch (error) {
-      console.error("Registration error:", error);
-    }
+    registerHandler({ username, email, password });
   };
 
-  return (
+  useEffect(() => {
+    setisRegistered(false);
+  }, []);
+  return isRegistered || authenticationToken ? (
+    <>
+      <div className="ui main" style={{ marginTop: "50px" }}>
+        You are registered please login to continue
+        <Link to="/login">
+          <button className="ui button blue">Login</button>
+        </Link>
+      </div>
+    </>
+  ) : (
     <div className="ui main">
       <h2 style={{ marginTop: "50px" }}>Please Register</h2>
       <form onSubmit={handleRegister} className="ui form">

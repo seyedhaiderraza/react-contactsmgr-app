@@ -1,31 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { contactsContext } from "../context/ContactsContext";
 
 const Login = () => {
+  const { authenticationToken, loginHandler } = useContext(contactsContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("/api/users/login", {
-        email,
-        password,
-      });
-      const token = response.data.authentication_token;
-      localStorage.setItem("authToken", token); // Save token to localStorage
-      navigate("/"); // Redirect to the contacts list page
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
+  //loginHandler(email, password);wrong its a call so everytime called on comp render
 
-  return (
+  return authenticationToken ? (
+    <>
+      <div className="ui main" style={{ marginTop: "5rem" }}>
+        Already Loggedin please continue
+      </div>
+      <Link to="/" className="ui button green">
+        Contacts List
+      </Link>
+      <Link to="/add" className="ui button blue">
+        Add Contact
+      </Link>
+    </>
+  ) : (
     <div className="ui main">
       <h2 style={{ marginTop: "50px" }}>Please Login</h2>
-      <form onSubmit={handleLogin} className="ui form">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          loginHandler(email, password);
+        }}
+        className="ui form"
+      >
         <div className="field">
           <label>Email</label>
           <input

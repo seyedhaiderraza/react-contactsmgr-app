@@ -5,6 +5,7 @@ import { contactsContext } from "../context/ContactsContext";
 
 const ContactList = (props) => {
   const {
+    errorMessage,
     contacts,
     fetchContacts,
     searchResults,
@@ -14,21 +15,21 @@ const ContactList = (props) => {
   const searchKeyword = useRef("");
 
   const searchKeywordHandle = () => {
-    console.log(searchKeyword.current.value);
     searchKeywordHandler(searchKeyword.current.value);
   };
   useEffect(() => {
-    fetchContacts(); //without calling this contacts wont be populated
+    fetchContacts();
+    //without calling this contacts wont be populated
   }, []);
   const filteredContacts = searchTerm ? searchResults : contacts;
   //if we dont use searchTerm for filtering 'no contacts available wont be shown
   const displayContactList = filteredContacts.map((contact) => {
-    return <ContactCard key={contact.id} contact={contact} />;
+    return <ContactCard key={contact._id} contact={contact} />;
   });
 
   return (
-    <div className="ui main">
-      <h2 style={{ marginTop: "40px" }}>Contacts List</h2>
+    <div className="ui main" style={{ margin: "50px" }}>
+      <h2>Contacts List</h2>
       <div className="ui search">
         <div
           className="ui icon input"
@@ -51,9 +52,10 @@ const ContactList = (props) => {
       <div className="ui celled list">
         {displayContactList.length > 0
           ? displayContactList
+          : errorMessage
+          ? errorMessage
           : "No Contacts Available"}
       </div>
-      ;
     </div>
   );
 };

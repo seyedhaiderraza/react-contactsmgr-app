@@ -6,7 +6,7 @@ import { contactsContext } from "../context/ContactsContext";
 const ContactCard = ({ contact, clickHandler }) => {
   const { removeContactHandler } = useContext(contactsContext);
 
-  const { id, name, email } = contact;
+  const { _id, name, email } = contact;
   const removeContact = (id) => {
     removeContactHandler(id);
   };
@@ -14,12 +14,12 @@ const ContactCard = ({ contact, clickHandler }) => {
     <div className="item" style={{ display: "flex", alignItems: "center" }}>
       <img className="ui avatar image" src={user} alt="user" />
       <div className="content">
-        <Link to={`/contact/${id}`} state={{ contact: contact }}>
+        <Link to={`/contact/view/${_id}`} state={{ contact: contact }}>
           <div className="header">{name}</div>
           <div>{email}</div>
         </Link>
       </div>
-      <Link to={`/contact/${id}`} state={{ contact: contact }}>
+      <Link to={`/contact/${_id}`} state={{ contact: contact }}>
         <i
           className="edit alternate outline icon"
           style={{
@@ -33,7 +33,7 @@ const ContactCard = ({ contact, clickHandler }) => {
       <i
         className="trash alternate outline icon"
         style={{ color: "red", margin: "1rem", cursor: "pointer" }}
-        onClick={() => removeContact(id)}
+        onClick={() => removeContact(_id)}
       ></i>
     </div>
   );

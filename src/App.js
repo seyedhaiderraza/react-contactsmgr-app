@@ -13,26 +13,16 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 function App() {
-  const LocalStorage_KEY = "contacts";
-  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
-
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      setAuthToken(token);
-    }
-  }, []);
-
   const PrivateRoute = ({ element, ...props }) => {
-    console.log(authToken);
+    const authToken = localStorage.getItem("authToken");
     return authToken ? <>{element}</> : <Navigate to="/login" />;
   };
 
   return (
     <div className="App">
-      <Header />
       <BrowserRouter>
         <ContactsContextProvider>
+          <Header />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

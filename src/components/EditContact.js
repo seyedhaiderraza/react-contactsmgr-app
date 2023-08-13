@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { v4 } from "uuid";
 import { contactsContext } from "../context/ContactsContext";
@@ -16,17 +16,18 @@ const EditContact = () => {
   // }
   const navigate = useNavigate();
   const location = useLocation();
-  const { id, name, email } = location.state.contact;
+  const { _id, name, email } = location.state.contact;
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
   const { updateContactHandler } = useContext(contactsContext);
+
   const updateContact = (e) => {
     e.preventDefault();
     if (newName === "" || newEmail === "") {
       alert("All fields are mandatory");
       return;
     }
-    updateContactHandler({ id, name: newName, email: newEmail });
+    updateContactHandler({ _id, name: newName, email: newEmail });
     //  updateContactHandler({ id, newName,newEmail }); this was not working giving axios 404 error why?
     setNewEmail("");
     setNewName("");

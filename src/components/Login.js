@@ -4,14 +4,32 @@ import axios from "axios";
 import { contactsContext } from "../context/ContactsContext";
 
 const Login = () => {
-  const { authenticationToken, loginHandler } = useContext(contactsContext);
+  const { errorMessage, authenticationToken, loginHandler } =
+    useContext(contactsContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   //loginHandler(email, password);wrong its a call so everytime called on comp render
 
-  return authenticationToken ? (
+  return errorMessage.includes("invalid Login credentials") ? (
+    <>
+      <div className="ui main" style={{ marginTop: "5rem" }}>
+        <h2 style={{ color: "black" }}>
+          Invalid Login Credentials Please retry
+        </h2>
+        <Link
+          to="/login"
+          className="ui button red"
+          onClick={() => {
+            errorMessage = "";
+          }}
+        >
+          Retry Login
+        </Link>
+      </div>
+    </>
+  ) : authenticationToken ? (
     <>
       <div className="ui main" style={{ marginTop: "5rem" }}>
         Already Loggedin please continue

@@ -30,12 +30,16 @@ const ContactsContextProvider = ({ children }) => {
           },
         }
       );
-      const token = response.data.authentication_token;
-      localStorage.setItem("authToken", token); // Save token to Context
-      await setAuthenticationToken(localStorage.getItem("authToken"));
-      localStorage.setItem("userName", email);
-      setUserName(localStorage.getItem("userName"));
-      navigate("/"); // Redirect to the contacts list page
+      if (!response?.data?.authentication_token) {
+        setError("invalid Login credentials please retry");
+      } else {
+        const token = response.data.authentication_token;
+        localStorage.setItem("authToken", token); // Save token to Context
+        await setAuthenticationToken(localStorage.getItem("authToken"));
+        localStorage.setItem("userName", email);
+        setUserName(localStorage.getItem("userName"));
+        navigate("/"); // Redirect to the contacts list page
+      }
     } catch (error) {
       console.error("Login error:", error);
     }

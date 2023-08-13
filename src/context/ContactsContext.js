@@ -19,7 +19,7 @@ const ContactsContextProvider = ({ children }) => {
   const loginHandler = async (email, password) => {
     try {
       const response = await axios.post(
-        "/users/login",
+        "https://contacts-manager-app-node-express.vercel.app/api/users/login",
         {
           email,
           password,
@@ -52,7 +52,7 @@ const ContactsContextProvider = ({ children }) => {
   const registerHandler = async ({ username, email, password }) => {
     try {
       const response = await axios.post(
-        "/users/register",
+        "https://contacts-manager-app-node-express.vercel.app/api/users/register",
         {
           username,
           email,
